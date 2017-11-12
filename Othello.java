@@ -12,42 +12,40 @@ public class Othello {
     static int WALL = 3;
     static int END = 4;
     int ban[] = new int[100];
-    int  state;
+    private int  state;
 
     Othello() {
 	this.init();
 	state = BLACK;
     }
 
-    public boolean passEndCheck(int state) {
+    public void passEndCheck() {
 	if(state == BLACK) {
 	    if( checkBlack().size() == 0 ) {
 	        if (checkWhite().size() == 0) {
-		    state = END;
-		    return true;
+		    this.state = END;
+		    return ;
 		}
-		state = WHITE;
-		return false;
+		this.state = WHITE;
 	    }
 	} else if (state == WHITE){
 	    if( checkWhite().size() == 0 ) {
 	        if (checkBlack().size() == 0) {
-		    state = END;
-		    return true;
+		    this.state = END;
+		    return ;
 		}
-		
-		state = BLACK;
-		return false;
+		this.state = BLACK;
 	    }
 	}
-	return false;
+	int x = checkBlack().size();
+	int y = checkWhite().size();
+	System.out.println(x + " " + y);
+	System.out.println(state);
+	printBan();
+	return ;
     }
 
     public void nextHand(int x) {
-	if(passEndCheck(state)) {
-	    System.out.println("ƒQ[ƒ€I—¹ •" + BlackNum());
-	    init();
-	}
 	if (state == BLACK) {
 	    if(this.flip_black(x) > 0) {
 		state = WHITE;
@@ -55,9 +53,15 @@ public class Othello {
 	} else if (state == WHITE) {
 	    if(this.flip_white(x) > 0){
 		state = BLACK;
-		checkBlack ();
 	    }
 	}
+	System.out.println(state);
+	passEndCheck();
+	if (state == END) {
+	    System.out.println(BlackNum() + "");
+	    init();
+	}
+	//System.out.println(state);
     }
 
     public int BlackNum () {
@@ -83,6 +87,7 @@ public class Othello {
 	ban[54] = BLACK;
 	ban[45] = BLACK;
 	ban[55] = WHITE;
+	state = BLACK;
     }
     
     public void printBan() {
