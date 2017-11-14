@@ -4,19 +4,47 @@ import java.util.ArrayList;
 public class Othello {
 
     public static void main (String args[]) {
+	int count = 0;
+	int blackWin = 0;
+	int whiteWin = 0;
+	Othello othello = new Othello(0);
+	RandomOthello ranOthello = new RandomOthello();
+	MonteCarlo monteCarlo = new MonteCarlo(200);
+	MonteCarlo monte2 = new MonteCarlo(1000);
+	while (count < COUNT) {
+	    while(othello.getState() != othello.END) {
+		if(othello.state == othello.BLACK){
+		    othello.nextHand(monte2.next(othello.getBan(), othello.state));
+		} else if (othello.state == othello.WHITE) {
+		    othello.nextHand(monteCarlo.next(othello.getBan(), othello.state));
+		}
+	    }
+	    if(othello.blackNum() > othello.whiteNum() ) blackWin++;
+	    if(othello.blackNum() < othello.whiteNum() ) whiteWin++;
+	    othello.init();
+	    count++;
+	    System.out.println(count);
+	}
+	System.out.println((double)blackWin/count + " " + (double)whiteWin/count);
     }
-    
+    static int COUNT = 1000;
     static int BLANK = 0;
     static int BLACK = 1;
     static int WHITE = 2;
     static int WALL = 3;
     static int END = 4;
     int ban[] = new int[100];
-    private int  state;
-
+    int state;
     Othello() {
+    }
+
+    Othello(int i) {
 	this.init();
 	state = BLACK;
+    }
+
+    public int getState() {
+	return state;
     }
 
     public void passEndCheck() {
@@ -37,11 +65,11 @@ public class Othello {
 		this.state = BLACK;
 	    }
 	}
-	int x = checkBlack().size();
-	int y = checkWhite().size();
-	System.out.println(x + " " + y);
-	System.out.println(state);
-	printBan();
+	//int x = checkBlack().size();
+	//int y = checkWhite().size();
+	//System.out.println(x + " " + y);
+	//System.out.println(state);
+	//printBan();
 	return ;
     }
 
@@ -55,19 +83,25 @@ public class Othello {
 		state = BLACK;
 	    }
 	}
-	System.out.println(state);
+	
+	//System.out.println(state);
 	passEndCheck();
-	if (state == END) {
-	    System.out.println(BlackNum() + "");
-	    init();
-	}
 	//System.out.println(state);
     }
 
-    public int BlackNum () {
+    public int blackNum () {
 	int count = 0;
 	for (int i=0; i<this.ban.length;i++) {
 	    if(this.ban[i] == BLACK) {
+		count++;
+	    }
+	}
+	return count;
+    }
+    public int whiteNum () {
+	int count = 0;
+	for (int i=0; i<this.ban.length;i++) {
+	    if(this.ban[i] == WHITE) {
 		count++;
 	    }
 	}

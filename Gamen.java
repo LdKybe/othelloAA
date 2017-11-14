@@ -7,9 +7,13 @@ class Gamen extends JFrame{
     
     OthelloPanel[] panel = new OthelloPanel[64];
     Othello othello;
+    MonteCarlo monte;
+    RandomOthello rand;
     
     Gamen(){
-	othello = new Othello();
+	othello = new Othello(0);
+	monte = new MonteCarlo(3000);
+	rand = new RandomOthello();
 	this.setLayout(new GridLayout(8,8));
 	for (int i=0; i<panel.length; i++) {
 	    this.panel[i] = new OthelloPanel(i, this);
@@ -26,8 +30,13 @@ class Gamen extends JFrame{
     public void clicked (int num) {
 	int y = num % 8 + 1;
 	int x = num / 8 + 1;
-	othello.nextHand(y * 10 + x);
+	if(othello.state == othello.WHITE) {
+	    othello.nextHand(monte.next(othello.ban, othello.state));
+	} else {
+	    othello.nextHand(y * 10 + x);
+	}
 	banUpdate();
+	
     }
 
     public void banUpdate() {

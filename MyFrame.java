@@ -3,36 +3,36 @@ import java.awt.event.*;
 
 public class MyFrame extends Frame implements WindowListener {
 
-	/**ƒRƒ“ƒXƒgƒ‰ƒNƒ^*/
+	/**ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿*/
 	public MyFrame(String frameName) {
 
-		//ƒtƒŒ[ƒ€‚Ìƒ^ƒCƒgƒ‹‚ğİ’è
+		//ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¨­å®š
 		setTitle(frameName);
 
-		//ƒXƒŒ[ƒ€‚Å”­¶‚µ‚½ƒCƒxƒ“ƒg’Ê’m—p‚Æ‚µ‚Ä“o˜^
+		//ã‚¹ãƒ¬ãƒ¼ãƒ ã§ç™ºç”Ÿã—ãŸã‚¤ãƒ™ãƒ³ãƒˆé€šçŸ¥ç”¨ã¨ã—ã¦ç™»éŒ²
 		addWindowListener(this);
 	}
 
-	/**ƒEƒBƒ“ƒhƒE‚ğƒNƒ[ƒY‚µ‚½‚Ìˆ—*/
+	/**ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã—ãŸæ™‚ã®å‡¦ç†*/
 	public void windowClosing(WindowEvent evt) {
 
-		dispose();	//ƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚é
+		dispose();	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹
 	}
 
-	/*ƒEƒBƒ“ƒhƒEƒNƒ[ƒYŒã‚Ìˆ—*/
+	/*ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ­ãƒ¼ã‚ºå¾Œã®å‡¦ç†*/
 	public void windowClosed(WindowEvent evt) {
 
-		System.exit(0);	//ƒvƒƒOƒ‰ƒ€I—¹
+		System.exit(0);	//ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†
 	}
 
-	/**‚»‚Ì‘¼‚ÌƒEƒBƒ“ƒhƒEˆ—*/
+	/**ãã®ä»–ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å‡¦ç†*/
 	public void windowDeiconified(WindowEvent evt) { }
 	public void windowIconified(WindowEvent evt) { }
 	public void windowOpened(WindowEvent evt) { }
 	public void windowActivated(WindowEvent evt) { }
 	public void windowDeactivated(WindowEvent evt) { }
 
-	/**main()ƒƒ\ƒbƒh*/
+	/**main()ãƒ¡ã‚½ãƒƒãƒ‰*/
 	public static void main(String[] args) {
 
 		MyFrame frame = new MyFrame("MyFrameTest");

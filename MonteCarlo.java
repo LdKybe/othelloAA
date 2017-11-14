@@ -3,8 +3,8 @@ import java.util.*;
 public class MonteCarlo extends Othello {
 
     Random rnd;
-    RandomOthello ranOthello;//ƒ‰ƒ“ƒ_ƒ€ƒIƒZƒƒvƒŒƒCƒNƒ‰ƒX
-    int COUNT = 0;//ŽŽs‰ñ”
+    RandomOthello ranOthello;//ãƒ©ãƒ³ãƒ€ãƒ ã‚ªã‚»ãƒ­ãƒ—ãƒ¬ã‚¤ã‚¯ãƒ©ã‚¹
+    int COUNT = 0;//è©¦è¡Œå›žæ•°
 
     MonteCarlo(){
 	rnd = new Random();
@@ -15,7 +15,7 @@ public class MonteCarlo extends Othello {
 	COUNT = i;
     }
 
-    //ƒ‚ƒ“ƒeƒJƒ‹ƒ–@ŽŸ‚ÌŽè‚ðŒˆ‚ß‚é
+    //ãƒ¢ãƒ³ãƒ†ã‚«ãƒ«ãƒ­æ³•æ¬¡ã®æ‰‹ã‚’æ±ºã‚ã‚‹
     public int next(int b[], int sta) {
 	int count = 0;
 	int blackWin = 0;
@@ -23,13 +23,13 @@ public class MonteCarlo extends Othello {
 	Othello othello = new Othello(0);
 	int[] winHand = new int[100];
 	while (count < COUNT) {
-	    //”Õ–Ê‚ðƒRƒs[
+	    //ç›¤é¢ã‚’ã‚³ãƒ”ãƒ¼
 	    for (int i = 0; i < othello.ban.length; i++) {
 	    othello.ban[i] = b[i];
 	    }
 	    
 	    othello.state = sta;
-	    int nh = ranOthello.next(othello.ban, othello.state);//Å‰‚Ì1Žè‚ð‹L˜^
+	    int nh = ranOthello.next(othello.ban, othello.state);//æœ€åˆã®1æ‰‹ã‚’è¨˜éŒ²
 	    othello.nextHand(nh);
 	    while(othello.getState() != othello.END) {
 		othello.nextHand(ranOthello.next(othello.ban, othello.state));
@@ -46,7 +46,7 @@ public class MonteCarlo extends Othello {
 	    }
 	}
 	if(max == 0) {
-	    return ranOthello.next(b, sta);//Ÿ‚ÂŽè‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡Aƒ‰ƒ“ƒ_ƒ€
+	    return ranOthello.next(b, sta);//å‹ã¤æ‰‹ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆã€ãƒ©ãƒ³ãƒ€ãƒ 
 	}
 	return max;
 
