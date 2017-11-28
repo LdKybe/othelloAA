@@ -9,10 +9,13 @@ class Gamen extends JFrame{
     Othello othello;
     MonteCarlo monte;
     RandomOthello rand;
+    TestP testp;
+    int MONTE_STR = 1;
     
     Gamen(){
-	othello = new Othello(0);
-	monte = new MonteCarlo(3000);
+	othello = new OthelloPlay();
+	testp = new TestP();
+	monte = new MonteCarlo(MONTE_STR);
 	rand = new RandomOthello();
 	this.setLayout(new GridLayout(8,8));
 	for (int i=0; i<panel.length; i++) {
@@ -30,8 +33,8 @@ class Gamen extends JFrame{
     public void clicked (int num) {
 	int y = num % 8 + 1;
 	int x = num / 8 + 1;
-	if(othello.state == othello.WHITE) {
-	    othello.nextHand(monte.next(othello.ban, othello.state));
+	if(othello.getState() == othello.BLACK) {
+	    othello.nextHand(testp.next(othello));
 	} else {
 	    othello.nextHand(y * 10 + x);
 	}

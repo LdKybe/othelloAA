@@ -1,32 +1,8 @@
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Othello {
-
-    public static void main (String args[]) {
-	int count = 0;
-	int blackWin = 0;
-	int whiteWin = 0;
-	Othello othello = new Othello(0);
-	RandomOthello ranOthello = new RandomOthello();
-	MonteCarlo monteCarlo = new MonteCarlo(200);
-	MonteCarlo monte2 = new MonteCarlo(1000);
-	while (count < COUNT) {
-	    while(othello.getState() != othello.END) {
-		if(othello.state == othello.BLACK){
-		    othello.nextHand(monte2.next(othello.getBan(), othello.state));
-		} else if (othello.state == othello.WHITE) {
-		    othello.nextHand(monteCarlo.next(othello.getBan(), othello.state));
-		}
-	    }
-	    if(othello.blackNum() > othello.whiteNum() ) blackWin++;
-	    if(othello.blackNum() < othello.whiteNum() ) whiteWin++;
-	    othello.init();
-	    count++;
-	    System.out.println(count);
-	}
-	System.out.println((double)blackWin/count + " " + (double)whiteWin/count);
-    }
+    static Random rnd = new Random(System.currentTimeMillis());
     static int COUNT = 1000;
     static int BLANK = 0;
     static int BLACK = 1;
@@ -34,59 +10,57 @@ public class Othello {
     static int WALL = 3;
     static int END = 4;
     int ban[] = new int[100];
-    int state;
-    Othello() {
+    int STATE;
+
+    Othello (int[] b, int state) {
+	for (int i=0; i<ban.length; i++) {
+	    this.ban[i] = b[i];
+	}
+	this.STATE = state;
     }
 
-    Othello(int i) {
-	this.init();
-	state = BLACK;
+    Othello(){
+	ban = new int[100];
     }
+
 
     public int getState() {
-	return state;
+	return STATE;
     }
 
     public void passEndCheck() {
-	if(state == BLACK) {
+	if(this.STATE == BLACK) {
 	    if( checkBlack().size() == 0 ) {
 	        if (checkWhite().size() == 0) {
-		    this.state = END;
+		    this.STATE = END;
 		    return ;
 		}
-		this.state = WHITE;
+		this.STATE = WHITE;
 	    }
-	} else if (state == WHITE){
+	} else if (this.STATE == WHITE){
 	    if( checkWhite().size() == 0 ) {
 	        if (checkBlack().size() == 0) {
-		    this.state = END;
+		    this.STATE = END;
 		    return ;
 		}
-		this.state = BLACK;
+		this.STATE = BLACK;
 	    }
 	}
-	//int x = checkBlack().size();
-	//int y = checkWhite().size();
-	//System.out.println(x + " " + y);
-	//System.out.println(state);
-	//printBan();
 	return ;
     }
 
+    //次の手を指定すると、stateに応じたプレイヤがプレイを行う。
     public void nextHand(int x) {
-	if (state == BLACK) {
+	if (this.STATE == BLACK) {
 	    if(this.flip_black(x) > 0) {
-		state = WHITE;
+		this.STATE = WHITE;
 	    }
-	} else if (state == WHITE) {
+	} else if (this.STATE == WHITE) {
 	    if(this.flip_white(x) > 0){
-		state = BLACK;
+		this.STATE = BLACK;
 	    }
 	}
-	
-	//System.out.println(state);
 	passEndCheck();
-	//System.out.println(state);
     }
 
     public int blackNum () {
@@ -107,6 +81,14 @@ public class Othello {
 	}
 	return count;
     }
+    public int checkNum(int player) {
+	if (player == WHITE) {
+	    return blackNum();
+	} else if (player == BLACK) {
+	    return whiteNum();
+	}
+	return 0;
+    }
 
     public void init() {
 	for (int i=0; i<100; i++) {
@@ -121,7 +103,7 @@ public class Othello {
 	ban[54] = BLACK;
 	ban[45] = BLACK;
 	ban[55] = WHITE;
-	state = BLACK;
+	this.STATE = BLACK;
     }
     
     public void printBan() {
@@ -135,7 +117,7 @@ public class Othello {
 
     public int flip_black (int x ) {
 	int count = 0;
-	if(ban[x] != 0)return 0;
+	if(this.ban[x] != 0)return 0;
 
 	count += flip_line_black(x, -11);
 	count += flip_line_black(x, -10);
@@ -146,8 +128,9 @@ public class Othello {
 	count += flip_line_black(x,  10);
 	count += flip_line_black(x,  11);
 	if(count > 0) {
-	    ban[x] = BLACK;
+	    this.ban[x] = BLACK;
 	}
+	//System.out.println(count);
 	return count;
 	
     }
@@ -156,16 +139,16 @@ public class Othello {
 
 	int count = 0, n = x + dir;
 	
-	while(ban[n]==WHITE) {
+	while(this.ban[n]==WHITE) {
 	    n += dir;
 	}
 
-	if(ban[n] != BLACK) {
+	if(this.ban[n] != BLACK) {
 	    return 0;
 	}
 
 	while(n!=x) {
-	    ban[n] = BLACK;
+	    this.ban[n] = BLACK;
 	    n -= dir;
 	    count++;
 	}
@@ -174,7 +157,7 @@ public class Othello {
 
     public int flip_white (int x ) {
 	
-	if(ban[x] != 0)return 0;
+	if(this.ban[x] != 0)return 0;
 	int count = 0;
 
 	count += flip_line_white(x, -11);
@@ -186,8 +169,9 @@ public class Othello {
 	count += flip_line_white(x,  10);
 	count += flip_line_white(x,  11);
 	if (count > 0) {
-	    ban[x] = WHITE;
+	    this.ban[x] = WHITE;
 	}
+	//printBan();
 	return count;
 	
     }
@@ -196,16 +180,16 @@ public class Othello {
 
 	int count = 0, n = x + dir;
 	
-	while(ban[n]==BLACK) {
+	while(this.ban[n]==BLACK) {
 	    n += dir;
 	}
 
-	if(ban[n] != WHITE) {
+	if(this.ban[n] != WHITE) {
 	    return 0;
 	}
 
 	while(n!=x) {
-	    ban[n] = WHITE;
+	    this.ban[n] = WHITE;
 	    n -= dir;
 	    count++;
 	}
