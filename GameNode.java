@@ -84,12 +84,14 @@ public class GameNode extends MonteCarlo {
     }
     
     public void playOut() {
+	
 	int winner = super.randomPlay();
 	sendResult(winner);
 	
-	if(playNum > 30) {
+	if(playNum > 40) {
 	    expNode();
 	}
+	getRoot().allUpdateUCB();
     }
 
     public void sendResult(int winner) {
@@ -97,25 +99,33 @@ public class GameNode extends MonteCarlo {
 	    this.winNum++;
 	}
 	this.playNum++;
-	updateUCB();
-	if (this.parent == null) return ;
-	this.parent.sendResult(winner);
-	
+        
+	if (this.parent != null){
+	    this.parent.sendResult(winner);
+	}
     }
 
-    public void updateUCB() {
-	if(winNum == 0){
-	    UCB=1000;
-	} else {
-	    win = (double)winNum/playNum;
-	    UCB = win + 0.4 * Math.sqrt(2*Math.log(getRoot().playNum)/this.playNum);
+    public void allUpdateUCB() {
+	updateUCB();
+	for (int i=0; i<this.child.size();i++) {
+	    child.get(i).allUpdateUCB();
 	}
-	
-	
-	
     }
+    
+    public void updateUCB() {
+	win = (double)winNum/playNum;
+	UCB = win + 0.35 * Math.sqrt(2*Math.log(getRoot().playNum)/this.playNum);
+	if (this.playNum == 0) {
+	    UCB = 100;
+	}
+    }
+    
+    
+	
+    
 
     public void printNodeInfo() {
+	    
 	System.out.println("No." + nodeNo + " nextHand :" + nHand +" UCB: " + UCB + " playOut: " + playNum + " winNum :" + winNum + " win: " + (double)winNum/playNum);
     }
 

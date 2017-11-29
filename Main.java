@@ -7,14 +7,14 @@ public class Main {
 	int whiteWin = 0;
 	OthelloPlay othello = new OthelloPlay();//オセロプレイ用のクラス
 	MonteCarlo monteCarlo = new MonteCarlo(5);//モンテカルロプレイヤクラス
-	MonteCarlo monte2 = new MonteCarlo(2000);//モンテカルロプレイヤクラス
+	MonteCarlo monte2 = new MonteCarlo(20000);//モンテカルロプレイヤクラス
 	TestP test = new TestP();
 	while (count < COUNT) {
 	    while(othello.getState() != othello.END) {
 		if(othello.getState() == othello.BLACK){
 		    othello.nextHand(test.next(othello));
 		} else if (othello.getState() == othello.WHITE) {
-		    othello.nextHand(monteCarlo.next(othello.getBan(), othello.getState()));
+		    othello.nextHand(monte2.next(othello.getBan(), othello.getState()));
 		}
 	    }
 	    String str = "";
