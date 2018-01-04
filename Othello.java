@@ -11,6 +11,7 @@ public class Othello {
     static int END = 4;
     int ban[] = new int[100];
     int STATE;
+    int moveCount = 0;
 
     Othello (int[] b, int state) {
 	for (int i=0; i<ban.length; i++) {
@@ -50,17 +51,23 @@ public class Othello {
     }
 
     //次の手を指定すると、stateに応じたプレイヤがプレイを行う。
-    public void nextHand(int x) {
+    public int nextHand(int x) {
+	int flipNum = 0;
 	if (this.STATE == BLACK) {
-	    if(this.flip_black(x) > 0) {
+	    flipNum = this.flip_black(x);
+	    if( flipNum > 0) {
+		moveCount++;
 		this.STATE = WHITE;
 	    }
 	} else if (this.STATE == WHITE) {
-	    if(this.flip_white(x) > 0){
+	    flipNum = this.flip_white(x);
+	    if(flipNum > 0){
 		this.STATE = BLACK;
+		moveCount++;
 	    }
 	}
 	passEndCheck();
+	return flipNum;
     }
 
     public int blackNum () {
@@ -90,6 +97,16 @@ public class Othello {
 	return 0;
     }
 
+    public int getWinner() {
+	if (whiteNum() > blackNum() ) {
+	    return WHITE;
+	} else if (blackNum() > whiteNum() ) {
+	    return BLACK;
+	} else {
+	    return 0;
+	}
+    }
+
     public void init() {
 	for (int i=0; i<100; i++) {
 	    ban[i] = WALL;
@@ -104,6 +121,7 @@ public class Othello {
 	ban[45] = BLACK;
 	ban[55] = WHITE;
 	this.STATE = BLACK;
+	moveCount = 0;
     }
     
     public void printBan() {

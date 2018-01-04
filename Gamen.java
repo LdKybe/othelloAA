@@ -10,11 +10,16 @@ class Gamen extends JFrame{
     MonteCarlo monte;
     RandomOthello rand;
     TestP testp;
+    TestP testp2;
     int MONTE_STR = 20000;
+    Evaluation eval;
     
     Gamen(){
+	eval = new Evaluation();
+	eval.init();
 	othello = new OthelloPlay();
 	testp = new TestP();
+	testp2 = new TestP();
 	monte = new MonteCarlo(MONTE_STR);
 	rand = new RandomOthello();
 	this.setLayout(new GridLayout(8,8));
@@ -31,16 +36,19 @@ class Gamen extends JFrame{
     }
 
     public void clicked (int num) {
+	System.out.println(eval.patternEvalution(othello));
 	int y = num % 8 + 1;
 	int x = num / 8 + 1;
-	while(othello.STATE != othello.END) {
-	    if(othello.getState() == othello.WHITE) {
-		othello.nextHand(testp.next(othello));
-	    } else {
-		othello.nextHand(monte.next(othello.getBan(), othello.getState()));
-	    }
-	    banUpdate();
-	    if(othello.STATE == othello.END) othello.init();
+	if(othello.getState() == othello.BLACK) {
+	    othello.nextHand(testp.next(othello));
+	} else {
+	    othello.nextHand(y * 10 + x);
+	}
+	banUpdate();
+	if(othello.STATE == othello.END) {
+	    System.out.println(othello.blackNum());
+	    othello.init();
+	    
 	}
 	
     }

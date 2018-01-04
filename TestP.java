@@ -2,7 +2,7 @@ import java.util.*;
 
 public class TestP extends Othello{
     GameNode root;
-    int COUNT=20000;
+    int COUNT=5000;
 
     public int next(Othello o) {
 	createRootNode(o.ban, o.STATE);
@@ -28,7 +28,8 @@ public class TestP extends Othello{
 	
 	int count = 0;
 	while(COUNT > count) {
-	    //System.out.println(count);
+	    if(count%1000 == 0)
+	    System.out.println(count/1000);
 	    root.play();
 	    count++;
 	}
