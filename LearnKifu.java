@@ -16,7 +16,7 @@ public class LearnKifu extends TDLambda {
     
     public int next (Othello othello, int pkNum) {
 	setBanInfo(othello);
-	return kifu.get(pkNum)[moveCount];
+	return kifu.get(1)[moveCount];
     }
 
     public void learn () {
@@ -47,7 +47,7 @@ public class LearnKifu extends TDLambda {
     
     
     public void setKifuFile() {
-	setKifuFile("test.txt");
+	setKifuFile("sen/senkou.txt");
     }
     public void setKifuFile(String filename) {
 	try {br = new BufferedReader(new FileReader(filename));
