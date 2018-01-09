@@ -12,6 +12,7 @@ public class Othello {
     int ban[] = new int[100];
     int STATE;
     int moveCount = 0;
+    int prePlayer = 0;
 
     Othello (int[] b, int state) {
 	for (int i=0; i<ban.length; i++) {
@@ -24,6 +25,18 @@ public class Othello {
 	ban = new int[100];
     }
 
+    public int next (int next) {
+	return next;
+    }
+
+    public void setBanInfo (Othello othello) {
+	for (int i = 0; i<this.ban.length; i++) {
+	    this.ban[i] = othello.ban[i];
+	}
+	this.STATE = othello.STATE;
+	this.moveCount = othello.moveCount;
+	this.prePlayer = othello.prePlayer;
+    }
 
     public int getState() {
 	return STATE;
@@ -50,6 +63,8 @@ public class Othello {
 	return ;
     }
 
+    
+
     //次の手を指定すると、stateに応じたプレイヤがプレイを行う。
     public int nextHand(int x) {
 	int flipNum = 0;
@@ -57,11 +72,13 @@ public class Othello {
 	    flipNum = this.flip_black(x);
 	    if( flipNum > 0) {
 		moveCount++;
+		this.prePlayer = BLACK;
 		this.STATE = WHITE;
 	    }
 	} else if (this.STATE == WHITE) {
 	    flipNum = this.flip_white(x);
 	    if(flipNum > 0){
+		this.prePlayer = WHITE;
 		this.STATE = BLACK;
 		moveCount++;
 	    }
@@ -95,6 +112,14 @@ public class Othello {
 	    return whiteNum();
 	}
 	return 0;
+    }
+    public ArrayList<Integer> checkMove() {
+	if (this.STATE == BLACK) {
+ 	    return checkBlack();
+	} else if (this.STATE == WHITE) {
+	    return checkWhite();
+	}
+	return new ArrayList<Integer>();
     }
 
     public int getWinner() {

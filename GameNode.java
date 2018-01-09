@@ -88,7 +88,7 @@ public class GameNode extends MonteCarlo {
 	int winner = super.randomPlay();
 	sendResult(winner);
 	
-	if(playNum > 40) {
+	if(playNum > 15) {
 	    expNode();
 	}
 	getRoot().allUpdateUCB();
@@ -114,7 +114,7 @@ public class GameNode extends MonteCarlo {
     
     public void updateUCB() {
 	win = (double)winNum/playNum;
-	UCB = win + 0.35 * Math.sqrt(2*Math.log(getRoot().playNum)/this.playNum);
+	UCB = win + 0.25 * Math.sqrt(2*Math.log(getRoot().playNum)/this.playNum);
 	if (this.playNum == 0) {
 	    UCB = 100;
 	}

@@ -4,6 +4,7 @@ import java.util.Random;
 public class PatternEval {
     int[] diag4, diag5, diag6, diag7, diag8;
     int[] hor1, hor2, hor3, hor4, edgex;
+    int[] corner25, corner33;
 
     
 
@@ -18,6 +19,9 @@ public class PatternEval {
 	hor3 = new int[6561];
 	hor4 = new int[6561];
 	edgex = new int[59049];
+	corner25 = new int[59049];
+	corner33 = new int[19683];
+	
     }
 
     static void readFromFile(BufferedReader br, int[] array) throws Exception{
@@ -28,7 +32,7 @@ public class PatternEval {
     static PatternEval readPatternFile(int moveCount) {
 	PatternEval pe = new PatternEval();
 	try {
-	    String filename = String.format("file/patternFile%2d.txt", moveCount);
+	    String filename = String.format("file/patternFile%d.txt", moveCount);
 	    BufferedReader br = new BufferedReader(new FileReader(filename));
 
 	    readFromFile(br, pe.diag4);
@@ -41,11 +45,14 @@ public class PatternEval {
 	    readFromFile(br, pe.hor3);
 	    readFromFile(br, pe.hor4);
 	    readFromFile(br, pe.edgex);
+	    readFromFile(br, pe.corner25);
+	    readFromFile(br, pe.corner33);
 
 	    br.close();
 	    
 	} catch (Exception e) {
 	    System.out.println("エラーの発生");
+	    e.printStackTrace();
 	}
 	
 	
@@ -57,7 +64,7 @@ public class PatternEval {
 	    PrintWriter[] pw = new PrintWriter[61];
 	    PatternEval pe = new PatternEval();
 	    for (int i = 0; i < 61; i++) {
-		String filename = String.format("file/patternFile%2d.txt", i);
+		String filename = String.format("file/patternFile%d.txt", i);
 		pw[i] = new PrintWriter(new BufferedWriter(new FileWriter(new File(filename))));
 		writeRandom(pw[i], pe.diag4);
 		writeRandom(pw[i], pe.diag5);
@@ -69,6 +76,8 @@ public class PatternEval {
 		writeRandom(pw[i], pe.hor3);
 		writeRandom(pw[i], pe.hor4);
 		writeRandom(pw[i], pe.edgex);
+		writeRandom(pw[i], pe.corner25);
+		writeRandom(pw[i], pe.corner33);
 		pw[i].close();
 	    }
 	    
@@ -77,20 +86,53 @@ public class PatternEval {
 	}
 	
     }
+
+    static void writePatternFile(PatternEval[] pattern) {
+	try {
+	    PrintWriter[] pw = new PrintWriter[61];
+	    PatternEval[] pe = pattern;
+	    for (int i = 0; i < 61; i++) {
+		String filename = String.format("file/patternFile%d.txt", i);
+		pw[i] = new PrintWriter(new BufferedWriter(new FileWriter(new File(filename)))); 
+		//System.out.println(pe[1].diag4[i]);
+		writeAll(pw[i], pe[i].diag4);
+		writeAll(pw[i], pe[i].diag5);
+		writeAll(pw[i], pe[i].diag6);
+		writeAll(pw[i], pe[i].diag7);
+		writeAll(pw[i], pe[i].diag8);
+		writeAll(pw[i], pe[i].hor1);
+		writeAll(pw[i], pe[i].hor2);
+		writeAll(pw[i], pe[i].hor3);
+		writeAll(pw[i], pe[i].hor4);
+		writeAll(pw[i], pe[i].edgex);
+		writeAll(pw[i], pe[i].corner25);
+		writeAll(pw[i], pe[i].corner33);
+		pw[i].close();
+	    }
+	    
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	
+    }
+
+    static void writeAll(PrintWriter pw, int[] array) {
+	for (int i = 0; i < array.length; i++) {
+	    pw.println(array[i]);
+	}
+    
+    }
     
     static void writeRandom(PrintWriter pw, int[] array) throws Exception {
 	for (int i = 0; i < array.length; i++) {
 	    Random rnd = new Random();
-	    int x = 0;
-	    pw.println(x);
+	    int x = rnd.nextInt(60000);
+	    pw.println(0);
 	}
     }
 
     public static void main(String args[]) {
-	PatternEval pe = readPatternFile(0);
 	makeNewRandomFile();
-	for (int i=0; i<pe.diag4.length;i++) {
-	    System.out.println(pe.diag4[i]);
-	}
+	System.out.println("ファイルの作成");
     }
 }

@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MonteCarlo extends RandomOthello {
+public class MonteCarlo extends RandomOthello implements OthelloPlayer{
 
     RandomOthello ranOthello;//ランダムオセロプレイクラス
     int COUNT = 0;//試行回数
@@ -44,6 +44,10 @@ public class MonteCarlo extends RandomOthello {
 
     public int next(int b[], int sta) {
 	return MonteCarloNext(b,sta);
+    }
+
+    public int next (Othello othello) {
+	return MonteCarloNext(othello.ban, othello.STATE);
     }
 
     public int randomPlay() {

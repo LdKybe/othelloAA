@@ -11,12 +11,12 @@ class Gamen extends JFrame{
     RandomOthello rand;
     TestP testp;
     TestP testp2;
-    int MONTE_STR = 20000;
-    Evaluation eval;
+    int MONTE_STR = 2000;
+    EvalPlay eval, eval2;
     
     Gamen(){
-	eval = new Evaluation();
-	eval.init();
+	eval = new EvalPlay();
+	eval2 = new EvalPlay();
 	othello = new OthelloPlay();
 	testp = new TestP();
 	testp2 = new TestP();
@@ -36,13 +36,16 @@ class Gamen extends JFrame{
     }
 
     public void clicked (int num) {
-	System.out.println(eval.patternEvalution(othello));
+	System.out.println(othello.prePlayer);
 	int y = num % 8 + 1;
 	int x = num / 8 + 1;
-	if(othello.getState() == othello.BLACK) {
-	    othello.nextHand(testp.next(othello));
+	if(othello.getState() == othello.WHITE) {
+	    othello.nextHand(eval.next(othello));
 	} else {
+	    System.out.println(eval.eval.patternEvaluation(othello));
 	    othello.nextHand(y * 10 + x);
+	    //othello.nextHand(monte.next(othello.ban, othello.STATE));
+	    
 	}
 	banUpdate();
 	if(othello.STATE == othello.END) {
@@ -50,6 +53,7 @@ class Gamen extends JFrame{
 	    othello.init();
 	    
 	}
+	
 	
     }
 

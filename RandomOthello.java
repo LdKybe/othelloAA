@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class RandomOthello extends Othello {
+public class RandomOthello extends Othello implements OthelloPlayer{
 
 
     RandomOthello(){
@@ -36,6 +36,11 @@ public class RandomOthello extends Othello {
 
     public int next(int[] b, int state) {
 	return randomNext(b ,state);
+    }
+
+    public int next (Othello othello) {
+	this.setBanInfo(othello);
+	return randomNext(this.ban, this.STATE);
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class TestP extends Othello{
+public class TestP extends Othello implements OthelloPlayer{
     GameNode root;
-    int COUNT=5000;
+    int COUNT=500;
 
     public int next(Othello o) {
 	createRootNode(o.ban, o.STATE);
@@ -12,9 +12,9 @@ public class TestP extends Othello{
 	    if(root.child.get(i).playNum > root.child.get(max).playNum) {
 		max = i;
 	    }
-	    root.child.get(i).printNodeInfo();
+	    //root.child.get(i).printNodeInfo();
 	}
-	System.out.println("***********************");
+	//System.out.println("***********************");
 	return root.child.get(max).nHand;
     }
     
@@ -28,8 +28,8 @@ public class TestP extends Othello{
 	
 	int count = 0;
 	while(COUNT > count) {
-	    if(count%1000 == 0)
-	    System.out.println(count/1000);
+	    //if(count%1000 == 0)
+	    //System.out.println(count/1000);
 	    root.play();
 	    count++;
 	}
