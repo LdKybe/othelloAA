@@ -17,17 +17,13 @@ public class TDLambda extends EvalPlay implements OthelloPlayer{
 	othello.setBanInfo(this);
 	if (othello.moveCount < 3 ) {
 	    preOthelloBan.clear();
-	    //System.out.println("更新");
-	    //System.out.println(othello.moveCount);
 	}
-	//System.out.println(othello.moveCount);
 	preOthelloBan.add(othello);
     }
     
     public void learnEval(Othello othello) {
 	for (int i = 0; i<preOthelloBan.size();i++) {
 	    this.learnEval(preOthelloBan.get(i), othello , preOthelloBan.size() - i);
-	    //System.out.println(preOthelloBan.size());
 	}
     }
 }
