@@ -34,14 +34,30 @@ public class MatchRate extends LearnKifu {
 	    checkMatch();
 	    playKifuNum++;
 	}
-	for (int i = 0; i < matchRate[1].length; i++) {
-	    System.out.print(matchRate[0][i] + " ");
+	outputMatchRate ("matchTest.txt");
+    }
+
+    public void outputMatchRate (String name) {
+	try {
+	    String filename = name;
+	    PrintWriter pw = new PrintWriter (new BufferedWriter(new FileWriter(new File(filename))));
+	    int matchNum = 0;
+	    int moveNum = 0;
+	    
+	    for (int i = 0; i < matchRate[0].length; i++ ) {
+		matchNum += matchRate[0][i];
+		moveNum += matchRate[1][i];
+	    }
+	    pw.println("match: " + matchNum +  " move: " + moveNum + " matchRate: " + ((double)matchNum/(double)moveNum));
+	    
+	    for (int i = 0; i < matchRate[0].length; i++ ) {
+	    pw.println("match: " + matchRate[0][i] +  " move: " + matchRate[1][i] + " matchRate: " + ((double)matchRate[0][i]/(double)matchRate[1][i]));
+	    }
+	    pw.close();
+	    
+	} catch (Exception e) {
+	    System.out.println("書き込みに失敗");
 	}
-	System.out.println();
-	for (int i = 0; i < matchRate[1].length; i++) {
-	    System.out.print(matchRate[1][i] + " ");
-	}
-	System.out.println();
     }
     
     public void checkMatch () {

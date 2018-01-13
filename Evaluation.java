@@ -42,7 +42,7 @@ public class Evaluation {
 	if (prePlayer == WHITE) reverseAll();
 	gen8ban();
 	int score = 0;
-	for (int i = 0; i<4; i++) {
+	for (int i = 0; i<8; i++) {
 	    score += diag4Eval(ban8[i]);
 	    score += diag5Eval(ban8[i]);
 	    score += diag6Eval(ban8[i]);
@@ -190,7 +190,7 @@ public class Evaluation {
 	if (othello.prePlayer == othello.WHITE) reverseAll();
 	gen8ban();
 	
-	for (int i = 0; i<8; i++) {
+	for (int i = 0; i<4; i++) {
 	    q[i][0] = diag4Eval(ban8[i]);
 	    q[i][1] = diag5Eval(ban8[i]);
 	    q[i][2] = diag6Eval(ban8[i]);
@@ -247,12 +247,10 @@ public class Evaluation {
 	    ban8[1][y*10+(9-x)] = ban[i];
 	    ban8[2][(9-x)*10+(9-y)] = ban[i];
 	    ban8[3][(9-y)*10+x] = ban[i];
-	}
-	for (int i=0; i<ban.length; i++) {
-	    ban8[4][99-i] = ban8[0][i];
-	    ban8[5][99-i] = ban8[1][i];
-	    ban8[6][99-i] = ban8[2][i];
-	    ban8[7][99-i] = ban8[3][i];
+	    ban8[4][y*10+x] = ban[i];
+	    ban8[5][x*10+(9-y)] = ban[i];
+	    ban8[6][(9-y)*10+(9-x)] = ban[i];
+	    ban8[7][(9-x)*10+y] = ban[i];
 	}
     }
 
