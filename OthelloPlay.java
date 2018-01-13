@@ -3,22 +3,24 @@ import java.io.*;
 
 
 public class OthelloPlay extends Othello {
-    ArrayList<Integer> kifu = new ArrayList<Integer>();
+    ArrayList<Integer> kifu;
     int KIFU = 0;
     
     OthelloPlay() {
+	kifu = new ArrayList<Integer>();
 	this.init();
 	this.STATE = BLACK;
 	
     }
 
     OthelloPlay(int kifuNum) {
+	kifu = new ArrayList<Integer>();
 	this.init();
 	KIFU = kifuNum;
     }
     
     public void init() {
-	if( kifu.size() > 0 && KIFU == 1){
+	if(this.STATE == END &&  KIFU == 1){
 	    outputKifu();
 	    kifu.clear();
 	}
