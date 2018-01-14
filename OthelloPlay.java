@@ -22,9 +22,15 @@ public class OthelloPlay extends Othello {
     
     public void init() {
 	if(this.STATE == END &&  KIFU == 1){
-	    outputBan();
-	    kifu.clear();
-	    recoredBan.clear();
+	    if (KIFU == 1) {
+		outputBan();
+		kifu.clear();
+		recoredBan.clear();
+	    } else if (KIFU == 2) {
+		outputKifu();
+		kifu.clear();
+		recoredBan.clear();
+	    }
 	}
 	super.init();
     }

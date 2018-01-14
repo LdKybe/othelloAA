@@ -16,6 +16,11 @@ public class EvalPlay extends Othello implements OthelloPlayer{
 	eval = new Evaluation();
 	LEARN = learn;
     }
+    EvalPlay(int learn, double epsilon){
+	eval = new Evaluation();
+	LEARN = learn;
+	Epsilon = epsilon;
+    }
 
     public int next (Othello othello) {
 	if (LEARN == 1) {
