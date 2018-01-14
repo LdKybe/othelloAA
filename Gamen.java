@@ -17,7 +17,7 @@ class Gamen extends JFrame{
     Gamen(){
 	eval = new EvalPlay();
 	eval2 = new EvalPlay();
-	othello = new OthelloPlay();
+	othello = new OthelloPlay(1);
 	testp = new TestP();
 	testp2 = new TestP();
 	monte = new MonteCarlo(MONTE_STR);
@@ -41,10 +41,11 @@ class Gamen extends JFrame{
 	int x = num / 8 + 1;
 	if(othello.getState() == othello.WHITE) {
 	    othello.nextHand(eval.next(othello));
+	    //othello.nextHand(testp.next(othello));
 	} else {
-	    System.out.println(eval.eval.patternEvaluation(othello));
+	    //System.out.println(eval.eval.patternEvaluation(othello));
 	    othello.nextHand(y * 10 + x);
-	    //othello.nextHand(monte.next(othello.ban, othello.STATE));
+	    //othello.nextHand(testp.next(othello.ban, othello.STATE));
 	    
 	}
 	banUpdate();

@@ -4,6 +4,7 @@ import java.io.*;
 
 public class OthelloPlay extends Othello {
     ArrayList<Integer> kifu;
+    ArrayList<Othello> recoredBan = new ArrayList<Othello>();
     int KIFU = 0;
     
     OthelloPlay() {
@@ -12,7 +13,7 @@ public class OthelloPlay extends Othello {
 	this.STATE = BLACK;
 	
     }
-
+    
     OthelloPlay(int kifuNum) {
 	kifu = new ArrayList<Integer>();
 	this.init();
@@ -21,8 +22,9 @@ public class OthelloPlay extends Othello {
     
     public void init() {
 	if(this.STATE == END &&  KIFU == 1){
-	    outputKifu();
+	    outputBan();
 	    kifu.clear();
+	    recoredBan.clear();
 	}
 	super.init();
     }
@@ -76,10 +78,14 @@ public class OthelloPlay extends Othello {
    
 
     public int nextHand(int x) {
+	Othello othello = new Othello();
+	othello.setBanInfo(this);
  	int flipNum = super.nextHand(x);
 	if (flipNum > 0 && KIFU == 1) {
 	    recordKifu(x);
+	    recoredBan.add(othello);
 	}
+	
 	return flipNum;
     }
 
@@ -97,7 +103,7 @@ public class OthelloPlay extends Othello {
 	outputKifu("temp.txt");
     }
     public void outputKifu(String str){
-	PrintWriter pw = null;
+	PrintWriter pw;
 	try {
 	    File file = new File(str);
 	    pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
@@ -109,7 +115,34 @@ public class OthelloPlay extends Othello {
 	} catch (IOException e) {
 	    System.out.println("棋譜ファイルの書き込み失敗");
 	} finally {
+	    //pw.close();
+	}
+    }
+
+    public void outputBan() {
+	outputBan("temp.txt");
+    }
+    public void outputBan(String str) {
+	PrintWriter pw;
+	try {
+	    File file = new File(str);
+	    pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+	    for (int i = 0; i<kifu.size(); i++) {
+		Othello othello = recoredBan.get(i);
+		for (int j = 0; j < othello.ban.length; j++ ) {
+		    pw.print(othello.ban[j] + " ");
+		}
+		pw.println();
+		pw.println(othello.moveCount);
+		pw.println(othello.STATE);
+		pw.println(kifu.get(i));
+	    }
+	    pw.println();
 	    pw.close();
+	} catch (IOException e) {
+	    System.out.println("棋譜ファイルの書き込み失敗");
+	} finally {
+	    //pw.close();
 	}
     }
     
