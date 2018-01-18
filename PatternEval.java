@@ -30,9 +30,14 @@ public class PatternEval {
     }
 
     static PatternEval readPatternFile(int moveCount) {
+	return readPatternFile(moveCount, "file");
+    }
+    static PatternEval readPatternFile(int moveCount, String dirname) {
 	PatternEval pe = new PatternEval();
+	File newdir = new File("./" + dirname);
+	newdir.mkdir();
 	try {
-	    String filename = String.format("file/patternFile%d.txt", moveCount);
+	    String filename = String.format(dirname + "/patternFile%d.txt", moveCount);
 	    BufferedReader br = new BufferedReader(new FileReader(filename));
 
 	    readFromFile(br, pe.diag4);
@@ -88,11 +93,18 @@ public class PatternEval {
     }
 
     static void writePatternFile(PatternEval[] pattern) {
+	writePatternFile(pattern , "eval");
+    }
+    static void writePatternFile(PatternEval[] pattern, String dirname) {
 	try {
 	    PrintWriter[] pw = new PrintWriter[61];
 	    PatternEval[] pe = pattern;
+	    File newdir = new File("./" + dirname);
+	    newdir.mkdir();
+	    
 	    for (int i = 0; i < 61; i++) {
-		String filename = String.format("file/patternFile%d.txt", i);
+		String filename = String.format(dirname + "/patternFile%d.txt", i);
+		//System.out.println(filename);
 		pw[i] = new PrintWriter(new BufferedWriter(new FileWriter(new File(filename)))); 
 		//System.out.println(pe[1].diag4[i]);
 		writeAll(pw[i], pe[i].diag4);
@@ -126,8 +138,8 @@ public class PatternEval {
     static void writeRandom(PrintWriter pw, int[] array) throws Exception {
 	for (int i = 0; i < array.length; i++) {
 	    Random rnd = new Random();
-	    int x = rnd.nextInt(60000);
-	    pw.println(0);
+	    int x = rnd.nextInt(10000);
+	    pw.println(x-5000);
 	}
     }
 

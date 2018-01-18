@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class MatchRate extends LearnKifu {
-    EvalPlay ePlay = new EvalPlay(0);
+    EvalPlay ePlay;
     int playSide = Othello.BLACK;
     int[][] matchRate = new int[2][61];
     
@@ -30,6 +30,12 @@ public class MatchRate extends LearnKifu {
     }
     
     public void checkMatchRate () {
+	checkMatchRate("file");
+    }
+    public void checkMatchRate (String filename) {
+	ePlay = new EvalPlay(filename);
+	playKifuNum = 0;
+	matchRate = new int[2][61];
 	while (kifuNum > playKifuNum ) {
 	    checkMatch();
 	    playKifuNum++;
@@ -40,7 +46,7 @@ public class MatchRate extends LearnKifu {
     public void outputMatchRate (String name) {
 	try {
 	    String filename = name;
-	    PrintWriter pw = new PrintWriter (new BufferedWriter(new FileWriter(new File(filename))));
+	    PrintWriter pw = new PrintWriter (new BufferedWriter(new FileWriter(new File(filename), true)));
 	    int matchNum = 0;
 	    int moveNum = 0;
 	    
@@ -51,7 +57,7 @@ public class MatchRate extends LearnKifu {
 	    pw.println("match: " + matchNum +  " move: " + moveNum + " matchRate: " + ((double)matchNum/(double)moveNum));
 	    
 	    for (int i = 0; i < matchRate[0].length; i++ ) {
-	    pw.println("match: " + matchRate[0][i] +  " move: " + matchRate[1][i] + " matchRate: " + ((double)matchRate[0][i]/(double)matchRate[1][i]));
+		//pw.println("match: " + matchRate[0][i] +  " move: " + matchRate[1][i] + " matchRate: " + ((double)matchRate[0][i]/(double)matchRate[1][i]));
 	    }
 	    pw.close();
 	    
@@ -63,6 +69,7 @@ public class MatchRate extends LearnKifu {
     public void checkMatch () {
 	Othello othello = new Othello();
 	othello.init();
+	//ePlay = new ePlay(filename);
 	while (othello.STATE != Othello.END) {
 	    int nextMove = next(othello);
 	    int evalMove = 0; 
@@ -102,9 +109,9 @@ public class MatchRate extends LearnKifu {
     public static void main(String[] args) {
 	MatchRate mr  = new MatchRate();
 	mr.setKifuData();
-	mr.checkMatchRate();
-	
+	for (int i = 0; i < 10; i++) {
+	    String filename = String.format("eval%d", i);
+	    mr.checkMatchRate(filename);
+	}
     }
-
-    
 }

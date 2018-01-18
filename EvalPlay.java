@@ -8,6 +8,9 @@ public class EvalPlay extends Othello implements OthelloPlayer{
     double Epsilon = 0.25; //sarsaにてどの程度の確率でランダム行動するか
 
     //コンストラクタ、int型にてプレイ方法を指定する。
+    EvalPlay(String str){
+	eval = new Evaluation(str);
+    }
     EvalPlay(){
 	eval = new Evaluation();
     }
@@ -101,6 +104,10 @@ public class EvalPlay extends Othello implements OthelloPlayer{
     
     //現在の評価値をファイルに保存するメソッド
     public void saveEval () {
-	PatternEval.writePatternFile(eval.pe);
+	saveEval("file");
+    }
+    public void saveEval (String dir) {
+	PatternEval.writePatternFile(eval.pe, dir);
+	//System.out.println("プリント");
     }
 }

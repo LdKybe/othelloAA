@@ -4,7 +4,7 @@ import java.util.*;
 public class LearnKifu extends SetKifu {
 
     BufferedReader br;
-    TDLambda tdLambda = new TDLambda();
+    EvalPlay tdLambda = new EvalPlay(1);
     int learnSide = Othello.BLACK;
 
     LearnKifu () {
@@ -17,17 +17,21 @@ public class LearnKifu extends SetKifu {
     }
     
     public int next (Othello othello, int pkNum) {
-	//setBanInfo(othello);
 	return kifu.get(pkNum)[othello.moveCount];
     }
 
     public void learn () {
+	learn("file");
+    }
+    public void learn (String dir) {
+	setKifuFile();
+	setKifuData();
 	while (kifuNum > playKifuNum ) {
 	    kifuPlay();
 	    playKifuNum++;
-	    System.out.println(playKifuNum);
+	    //System.out.println(playKifuNum);
 	}
-	tdLambda.saveEval();
+	tdLambda.saveEval(dir);
     }
 
     public void kifuPlay () {
@@ -47,8 +51,12 @@ public class LearnKifu extends SetKifu {
     
     public static void main(String[] args) {
 	LearnKifu lk = new LearnKifu();
-	lk.setKifuFile();
-	lk.setKifuData();
-	lk.learn();
+	for (int i = 0; i < 10; i++) {
+	    String dir = String.format("eval%d", i);
+	    for (int j = 0; j < 10; j++){
+		lk.learn(dir);
+		System.out.println("Learn" + i);
+	    }
+	}
     }
 }

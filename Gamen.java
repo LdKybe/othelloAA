@@ -43,7 +43,7 @@ class Gamen extends JFrame{
 	    othello.nextHand(eval.next(othello));
 	    //othello.nextHand(testp.next(othello));
 	} else {
-	    //System.out.println(eval.eval.patternEvaluation(othello));
+	    System.out.println(eval.eval.patternEvaluation(othello));
 	    othello.nextHand(y * 10 + x);
 	    //othello.nextHand(testp.next(othello.ban, othello.STATE));
 	    
