@@ -2,12 +2,11 @@ import java.util.*;
 import java.io.*;
 
 
-//ボナンザメソッドを利用して、自己学習を行うクラス
 public class LearnBonaMethod extends Othello {
     ArrayList<Integer> kifu;
     BonaMethod bm = new BonaMethod("file");
-    EvalPlay oPlayer1 = new EvalPlay(0);
-    EvalPlay oPlayer2 = new EvalPlay(0);
+    EvalPlay oPlayer1 = new EvalPlay(0, 0.1);
+    EvalPlay oPlayer2 = new EvalPlay(0, 0.1);
 
     LearnBonaMethod() {
 	kifu = new ArrayList<Integer>();
@@ -49,9 +48,7 @@ public class LearnBonaMethod extends Othello {
 	int winner = playOthello(oPlayer1, oPlayer2);
 	init();
 	for (int i = 0; i < kifu.size(); i++ ) {
-
-	    if (winner == this.STATE) {
-		//System.out.println("ooo");
+	    if (winner == this.STATE && oPlayer1.next(this) != kifu.get(i)) {
 		ArrayList<Othello> othello = new ArrayList<Othello>();
 		Othello bestNextBan = new Othello();
 		bestNextBan.setBanInfo(this);
@@ -79,8 +76,10 @@ public class LearnBonaMethod extends Othello {
 	while(count < 1000000) {
 	    lbm.learnEval();
 	    count++;
-	    System.out.print("*");
 	    if (count % 100 == 0) {
+		System.out.print("*");
+	    }
+	    if (count % 1000 == 0) {
 		System.out.println();
 		EvalPlay oPlayer1 = new EvalPlay(0);
 		RandomOthello oPlayer2 = new RandomOthello();

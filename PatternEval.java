@@ -139,7 +139,7 @@ public class PatternEval {
 	for (int i = 0; i < array.length; i++) {
 	    Random rnd = new Random();
 	    int x = rnd.nextInt(10000);
-	    pw.println(x-5000);
+	    pw.println(0);
 	}
     }
 

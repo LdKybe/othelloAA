@@ -29,7 +29,12 @@ public class EvalPlay extends Othello implements OthelloPlayer{
 	if (LEARN == 1) {
 	    return nextSarsaE(othello, Epsilon );
 	}
-	return maxEvalMove(othello);
+	setBanInfo(othello);
+	if(rnd.nextInt(1000) < Epsilon*1000) {
+	    return this.checkMove().get(rnd.nextInt(this.checkMove().size()));
+	} else {
+	    return maxEvalMove(othello);
+	}
     }
 
     public void connectEval (EvalPlay ep) {
