@@ -5,7 +5,7 @@ public class EvalPlay extends Othello implements OthelloPlayer{
     Othello preOthello = new Othello();//1手前のゲーム状況を格納するクラス
     int LEARN = 0;//プレイ方法に関するパラメータ
     int learnCount = 0;//どのくらいの盤面数学習したか格納するパラメータ
-    double Epsilon = 0.25; //sarsaにてどの程度の確率でランダム行動するか
+    double Epsilon = 0; //sarsaにてどの程度の確率でランダム行動するか
 
     //コンストラクタ、int型にてプレイ方法を指定する。
     EvalPlay(String str){

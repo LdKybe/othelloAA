@@ -4,7 +4,7 @@ import java.io.*;
 
 public class LearnBonaMethod extends Othello {
     ArrayList<Integer> kifu;
-    BonaMethod bm = new BonaMethod("file");
+    BonaMethod bm = new BonaMethod("eval");
     EvalPlay oPlayer1 = new EvalPlay(0, 0.1);
     EvalPlay oPlayer2 = new EvalPlay(0, 0.1);
 
@@ -43,8 +43,8 @@ public class LearnBonaMethod extends Othello {
     }
 
     public void learnEval() {
-	oPlayer1.eval.pe = bm.pe;
-	oPlayer2.eval.pe = bm.pe;
+	//oPlayer1.eval.pe = bm.pe;
+	oPlayer2.eval.pe = bm.pe;  
 	int winner = playOthello(oPlayer1, oPlayer2);
 	init();
 	for (int i = 0; i < kifu.size(); i++ ) {
@@ -73,7 +73,7 @@ public class LearnBonaMethod extends Othello {
 	LearnBonaMethod lbm = new LearnBonaMethod();
 	OthelloPlay othello = new OthelloPlay();
 	int count = 0;
-	while(count < 1000000) {
+	while(count < 10000000) {
 	    lbm.learnEval();
 	    count++;
 	    if (count % 100 == 0) {
@@ -81,11 +81,11 @@ public class LearnBonaMethod extends Othello {
 	    }
 	    if (count % 1000 == 0) {
 		System.out.println();
-		EvalPlay oPlayer1 = new EvalPlay(0);
+		PatternEval.writePatternFile(lbm.bm.pe, "eval");
+		EvalPlay oPlayer1 = new EvalPlay("eval");
 		RandomOthello oPlayer2 = new RandomOthello();
 		OthelloPlay op = new OthelloPlay();
 		op.playOthello(oPlayer1, oPlayer2, 1000);
-		PatternEval.writePatternFile(lbm.bm.pe, "file");
 	    }
 	}
     }

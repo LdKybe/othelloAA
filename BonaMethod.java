@@ -3,7 +3,8 @@ import java.util.*;
 //ボナンザメソッドを実行するクラス
 public class BonaMethod extends Evaluation {
     public double LearnRate = 100000;
-    public static double gain = 0.002;
+    public static double gain = 0.025;
+    public double w = 0.001;
 
     BonaMethod(String str) {
 	super(str);
@@ -23,16 +24,15 @@ public class BonaMethod extends Evaluation {
 	for (int i = 0; i < v.size(); i++) {
 	    for (int j = 0; j < v.get(0).length; j++) {
 		for (int k = 0; k < v.get(0)[0].length; k++){
-		    //if (v.get(i)[j][k] > 1000 )
-			//System.out.println(v.get(i)[j][k]);
+		    if(v.get(i)[j][k] > 1000000) System.out.print("?");
 		    evalDiff +=  v.get(i)[j][k];
 		    evalDiff -=  v.get(0)[j][k];
 		}
 	    }
 	}
-	//if (evalDiff > 1000) {
-	//  System.out.println(evalDiff);
-	//  System.out.println(dSigmoid(evalDiff));
+	//if (sigmoid(evalDiff) > 0.02 ) System.out.print("*");
+	//System.out.println(evalDiff);
+	//System.out.println(dSigmoid(evalDiff) * LearnRate);
 	//}
 	//System.out.println(evalDiff);
 	for (int i2 = 0; i2 < v.size(); i2++) {
@@ -62,9 +62,9 @@ public class BonaMethod extends Evaluation {
 	    //System.out.println("ok");
 	    for (int j = 0; j < v.get(0).length; j++) {
 		for (int k = 0; k < v.get(0)[0].length; k++){
-		    if (LearnRate * anser.get(i)[j][k] > 1) count++;
-		    v.get(i)[j][k] -= LearnRate * anser.get(i)[j][k];
-		    //System.out.println(LearnRate * 1000 * anser.get(i)[j][k]);
+		    //System.out.println(v.get(i)[j][k]);
+		    v.get(i)[j][k] = v.get(i)[j][k] - (LearnRate * anser.get(i)[j][k] + w * v.get(i)[j][k]);
+		    //System.out.println(anser.get(i)[j][k]);
 		}
 	    }
 	}
