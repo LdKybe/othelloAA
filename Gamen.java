@@ -6,7 +6,7 @@ import java.awt.event.*;
 class Gamen extends JFrame{
     
     OthelloPanel[] panel = new OthelloPanel[64];
-    Othello othello;
+    OthelloPlay othello;
     MonteCarlo monte;
     RandomOthello rand;
     TestP testp;
@@ -17,7 +17,7 @@ class Gamen extends JFrame{
     Gamen(){
 	eval = new EvalPlay();
 	eval2 = new EvalPlay();
-	othello = new OthelloPlay(1);
+	othello = new OthelloPlay(2);
 	testp = new TestP();
 	testp2 = new TestP();
 	monte = new MonteCarlo(MONTE_STR);
@@ -36,14 +36,14 @@ class Gamen extends JFrame{
     }
 
     public void clicked (int num) {
-	System.out.println(othello.prePlayer);
+	//System.out.println(othello.prePlayer);
 	int y = num % 8 + 1;
 	int x = num / 8 + 1;
-	if(othello.getState() == othello.WHITE) {
-	    othello.nextHand(eval.next(othello));
-	    //othello.nextHand(testp.next(othello));
+	if(othello.getState() == othello.BLACK) {
+	    //othello.nextHand(eval.next(othello));
+	    othello.nextHand(testp.next(othello));
 	} else {
-	    System.out.println(eval.eval.patternEvaluation(othello));
+	    //System.out.println(eval.eval.patternEvaluation(othello));
 	    othello.nextHand(y * 10 + x);
 	    //othello.nextHand(testp.next(othello.ban, othello.STATE));
 	    

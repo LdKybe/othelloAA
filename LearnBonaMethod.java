@@ -5,8 +5,8 @@ import java.io.*;
 public class LearnBonaMethod extends Othello {
     ArrayList<Integer> kifu;
     BonaMethod bm = new BonaMethod("eval");
-    EvalPlay oPlayer1 = new EvalPlay(0, 0.1);
-    EvalPlay oPlayer2 = new EvalPlay(0, 0.1);
+    EvalPlay oPlayer1 = new EvalPlay(0, 0.2);
+    EvalPlay oPlayer2 = new EvalPlay(0, 0.2);
 
     LearnBonaMethod() {
 	kifu = new ArrayList<Integer>();
