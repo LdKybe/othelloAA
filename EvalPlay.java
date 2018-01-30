@@ -6,6 +6,7 @@ public class EvalPlay extends Othello implements OthelloPlayer{
     int LEARN = 0;//プレイ方法に関するパラメータ
     int learnCount = 0;//どのくらいの盤面数学習したか格納するパラメータ
     double Epsilon = 0; //sarsaにてどの程度の確率でランダム行動するか
+    int reward = 1000;
 
     //コンストラクタ、int型にてプレイ方法を指定する。
     EvalPlay(String str){
@@ -97,6 +98,12 @@ public class EvalPlay extends Othello implements OthelloPlayer{
 	if (moveCount > 2) learnEval(this);//学習
 	this.savePreOthello(othello, nextMove);//盤面記録
     }
+    public void kifuLearnEval (Othello othello, int nextMove) {
+	setBanInfo(othello);
+	this.nextHand(nextMove);
+	if (moveCount > 2) learnEval(preOthello, this, 1, reward);//学習
+	this.savePreOthello(othello, nextMove);//盤面記録
+    }
     public void learnEval(Othello othello) {
 	learnEval(preOthello, othello);
     }
@@ -104,7 +111,10 @@ public class EvalPlay extends Othello implements OthelloPlayer{
 	learnEval(othello, othello2, 1);
     }
     public void learnEval(Othello othello, Othello othello2, double e) {
-	eval.learnEvaluation(othello, othello2, e);
+	learnEval(othello, othello2, e, 0);
+    }
+    public void learnEval(Othello othello, Othello othello2, double e, int reward) {
+	eval.learnEvaluation(othello, othello2, e, reward);
     }
     
     //現在の評価値をファイルに保存するメソッド

@@ -4,6 +4,11 @@ public class TestP extends Othello implements OthelloPlayer{
     GameNode root;
     int COUNT=4000;
 
+    TestP() {}
+    TestP(int count) {
+	COUNT = count;
+    }
+
     public int next(Othello o) {
 	createRootNode(o.ban, o.STATE);
 	playOut();
@@ -28,12 +33,9 @@ public class TestP extends Othello implements OthelloPlayer{
 	
 	int count = 0;
 	while(COUNT > count) {
-	    if(count%1000 == 0)
-		System.out.print("*");
 	    root.play();
 	    count++;
 	}
-	System.out.println();
     }
 
     public static void main(String args[]) {

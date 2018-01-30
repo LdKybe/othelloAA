@@ -58,6 +58,16 @@ public class OthelloPlay extends Othello {
 	}
 	if (print == 1) {
 	    System.out.println("playNum: " + count + " : " + "player1 win: " + (double)player1/count + " player2 win: " + (double)player2/count);
+	}else if(print == 2) {
+	    try {
+		System.out.println("playNum: " + count + " : " + "player1 win: " + (double)player1/count + " player2 win: " + (double)player2/count);
+		File file = new File("winRate.txt");
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+		pw.println((double)player1/count + "," + (double)player2/count);
+		pw.close();
+	    } catch (Exception e) {
+		System.out.println("勝率書き込みエラー");
+	    }
 	}
     }
     

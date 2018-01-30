@@ -75,6 +75,9 @@ public class Evaluation {
 	learnEvaluation(othello, othello2, 1);
     }
     public void learnEvaluation(Othello othello, Othello othello2, double t_n) {
+	learnEvaluation(othello, othello2, t_n, 0);
+    }
+    public void learnEvaluation(Othello othello, Othello othello2, double t_n, int reward) {
 
 
 	
@@ -88,7 +91,7 @@ public class Evaluation {
 
 	q_t1 = getQ(othello2);
 	q_t = getQ(othello);
-	valDiff = valueDifference(q_t, q_t1);
+	valDiff = valueDifference(q_t, q_t1, reward);
 	
 	for (int i = 0; i < q_t.length; i++) {
 	    for (int j = 0; j < q_t[1].length; j++) {

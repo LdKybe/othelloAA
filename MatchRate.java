@@ -28,19 +28,17 @@ public class MatchRate extends LearnKifu {
 	}
 	return count;
     }
-    
-    public void checkMatchRate () {
-	checkMatchRate("file");
-    }
-    public void checkMatchRate (String filename) {
-	ePlay = new EvalPlay(filename);
+    public void checkMatchRate (String eval, String filename) {
+	ePlay = new EvalPlay(eval);
+	setKifuFile(filename);
+	setKifuData();
 	playKifuNum = 0;
 	matchRate = new int[2][61];
 	while (kifuNum > playKifuNum ) {
 	    checkMatch();
 	    playKifuNum++;
 	}
-	outputMatchRate ("matchTest.txt");
+	//outputMatchRate ("matchTest.txt");
     }
 
     public void outputMatchRate (String name) {
@@ -54,7 +52,7 @@ public class MatchRate extends LearnKifu {
 		matchNum += matchRate[0][i];
 		moveNum += matchRate[1][i];
 	    }
-	    pw.println("match: " + matchNum +  " move: " + moveNum + " matchRate: " + ((double)matchNum/(double)moveNum));
+	    pw.println(matchNum +  "," + moveNum + "," + ((double)matchNum/(double)moveNum));
 	    
 	    for (int i = 0; i < matchRate[0].length; i++ ) {
 		//pw.println("match: " + matchRate[0][i] +  " move: " + matchRate[1][i] + " matchRate: " + ((double)matchRate[0][i]/(double)matchRate[1][i]));
@@ -108,10 +106,14 @@ public class MatchRate extends LearnKifu {
     
     public static void main(String[] args) {
 	MatchRate mr  = new MatchRate();
-	mr.setKifuData();
-	for (int i = 0; i < 10; i++) {
-	    String filename = String.format("eval%d", i);
-	    mr.checkMatchRate(filename);
+	    mr.checkMatchRate("file", "./kifu/testData/senkou.txt");
+	    mr.checkMatchRate("file", "./kifu/testData/koukou.txt");
+	    mr.outputMatchRate ("resultFile/method2/file+kifu/matchTest.csv");
+	for (int i = 0; i < 200; i++) {
+	    String filename = String.format("resultFile/method2/file+kifu/eval%d", i);
+	    mr.checkMatchRate(filename, "./kifu/testData/senkou.txt");
+	    mr.checkMatchRate(filename, "./kifu/testData/koukou.txt");
+	    mr.outputMatchRate ("resultFile/method2/file+kifu/matchTest.csv");
 	}
     }
 }

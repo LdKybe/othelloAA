@@ -22,8 +22,8 @@ public class SetKifu {
 
     public void setKifuData() {
 	try {
-	    setKifuFile();
-	    if (br == null)throw new Exception("nullなんですけどー");
+	    //setKifuFile();
+	    if (br == null)throw new Exception("null");
 	    String[] str;
 	    String brStr = br.readLine();
 	    int count = 0;
