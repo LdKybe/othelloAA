@@ -2,9 +2,9 @@ import java.util.*;
 
 //ボナンザメソッドを実行するクラス
 public class BonaMethod extends Evaluation {
-    public double LearnRate = 10000;
+    public double LearnRate = 200000;
     public static double gain = 0.0270;
-    public double w = 0.001;
+    public double w = 0.0001;
 
     BonaMethod(String str) {
 	super(str);
@@ -26,9 +26,9 @@ public class BonaMethod extends Evaluation {
 	for (int i = 0; i < v.size(); i++) {
 	    for (int j = 0; j < v.get(0).length; j++) {
 		for (int k = 0; k < v.get(0)[0].length; k++){
-		    if(v.get(i)[j][k] > 1000000) System.out.print("?");
-		    evalDiff +=  v.get(i)[j][k] * 0.01;
-		    evalDiff -=  v.get(0)[j][k] * 0.01;
+		    //if(v.get(i)[j][k] > 1000000) System.out.print("?");
+		    evalDiff +=  v.get(i)[j][k] * 0.001;
+		    evalDiff -=  v.get(0)[j][k] * 0.001;
 		}
 	    }
 	}
@@ -79,6 +79,10 @@ public class BonaMethod extends Evaluation {
 
     public static double dSigmoid(double x) {
 	return gain * (1 - sigmoid(x)) * sigmoid(x);
+    }
+
+    public void saveEval (String dir) {
+	PatternEval.writePatternFile(pe, dir);
     }
 
 }

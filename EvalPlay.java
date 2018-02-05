@@ -123,6 +123,5 @@ public class EvalPlay extends Othello implements OthelloPlayer{
     }
     public void saveEval (String dir) {
 	PatternEval.writePatternFile(eval.pe, dir);
-	//System.out.println("プリント");
     }
 }
