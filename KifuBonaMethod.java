@@ -4,8 +4,8 @@ import java.util.*;
 public class KifuBonaMethod extends SetKifu {
 
     BufferedReader br;
-    BonaMethod bm = new BonaMethod("file");
-    EvalPlay evalPlay = new EvalPlay("file");
+    BonaMethod bm = new BonaMethod("file2");
+    EvalPlay evalPlay = new EvalPlay("file2");
     int learnSide = Othello.BLACK;
 
     KifuBonaMethod () {
@@ -60,16 +60,6 @@ public class KifuBonaMethod extends SetKifu {
     
     public static void main(String[] args) {
 	KifuBonaMethod lk = new KifuBonaMethod();
-	for (int i = 0; i < 200; i++) {
-	    String dir = String.format("resultFile/method/file+kifu/eval%d", i);
-	    for (int j = 0; j < 10; j++){
-		lk.learn(dir, "kifu/learnData/senkou.txt", Othello.BLACK);
-		lk.learn(dir, "kifu/learnData/koukou.txt", Othello.WHITE);
-		if (j % 10 == 0) {
-		    System.out.print("*");
-		}
-	    }
-	}
 	lk.evalPlay = new EvalPlay("file2");
 	for (int i = 0; i < 200; i++) {
 	    String dir = String.format("resultFile/method/file/eval%d", i);

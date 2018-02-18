@@ -115,9 +115,9 @@ public class MatchRate extends LearnKifu {
 	    mr.checkMatchRate(filename, "./kifu/testData/koukou.txt");
 	    mr.outputMatchRate ("resultFile/method/file+kifu/matchTest.csv");
 	}
-	mr.checkMatchRate("file", "./kifu/testData/senkou.txt");
-	mr.checkMatchRate("file", "./kifu/testData/koukou.txt");
-	mr.outputMatchRate ("resultFile/method/file+kifu/matchTest.csv");
+	mr.checkMatchRate("file2", "./kifu/testData/senkou.txt");
+	mr.checkMatchRate("file2", "./kifu/testData/koukou.txt");
+	mr.outputMatchRate ("resultFile/method/file/matchTest.csv");
 	for (int i = 0; i < 200; i++) {
 	    String filename = String.format("resultFile/method/file/eval%d", i);
 	    mr.checkMatchRate(filename, "./kifu/testData/senkou.txt");
