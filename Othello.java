@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * オセロの盤面情報の保存と基本的な機能を格納したクラス
+ *a aaオセロの盤面情報の保存と基本的な機能を格納したクラス
  */
 public class Othello {
     /**
